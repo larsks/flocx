@@ -1,0 +1,14 @@
+.DS_Store
+*.swp
+*.pyc
+*.~
+.ropeproject
+*.egg-info
+build
+dist
+.venv
+.coverage
+*.db
+/.cache
+.eggs/
+.pytest_cache
