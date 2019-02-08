@@ -1,10 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
         name='flocx', 
         version='0.1.0',
         maintainer='Sahil Tikale',
-        maintainer_email='tikale@bu.edu',
         url='https://github.com/CCI-MOC/flocx',
         description='A marketplace that enables sharing and trading '
         'of bare-metal servers among non-trusting stake-holders.',
@@ -19,7 +18,10 @@ setup(
             'Operating System :: POSIX :: Linux',
             'Programming Language :: Python',
             ],
+        packages=find_packages(),
         keywords='cloud cloud-economics bare-metal setuptools data-center',
+        install_requires=[],
+        extras_require={'tests': ['pytest>=4.0',]}
 )
 
 
