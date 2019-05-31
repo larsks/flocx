@@ -3,22 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
+    <loc>/flocx/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/api/</loc>
+    <loc>/flocx/api/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>/flocx/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>/flocx/tags/</loc>
     <priority>0</priority>
   </url>
   
