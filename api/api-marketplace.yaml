@@ -1,0 +1,78 @@
+# See the Swagger/OpenAPI specification: https://swagger.io/specification/
+
+---
+openapi: "3.0.0"
+info:
+  title: "FLOCX Marketplace API"
+  version: 1.0.0
+  description: |-
+    This document specifies the API used by the [FLOCX][] Marketplace service.
+
+    [flocx]: https://cci-moc.github.io/flocx/
+
+servers:
+  - url: http://marketplace.example.com/{version}
+    description: example endpoint
+    variables:
+      version:
+        enum:
+          - v1
+        default: v1
+
+security:
+  - KeystoneAuth: []
+
+# The paths section provides details about the endpoints
+# supported by the API.
+paths:
+
+  /provider:
+    $ref: 'parts/provider/collection.yaml'
+  /provider/{providerId}:
+    $ref: 'parts/provider/by_id.yaml'
+
+  /offer:
+    $ref: 'parts/offer/collection.yaml'
+  /offer/{offerId}:
+    $ref: 'parts/offer/by_id.yaml'
+
+  /bid:
+    $ref: 'parts/bid/collection.yaml'
+  /bid/{bidId}:
+    $ref: 'parts/bid/by_id.yaml'
+
+  /contract:
+    $ref: 'parts/contract/collection.yaml'
+
+# The components section is a place to describe data models.
+components:
+  schemas:
+    Error:
+      $ref: 'parts/error/model.yaml#/Error'
+    Provider:
+      $ref: 'parts/provider/model.yaml#/Provider'
+    ListOfProviders:
+      $ref: 'parts/provider/model.yaml#/ListOfProviders'
+    Offer:
+      $ref: 'parts/offer/model.yaml#/Offer'
+    ListOfOffers:
+      $ref: 'parts/offer/model.yaml#/ListOfOffers'
+    Bid:
+      $ref: 'parts/bid/model.yaml#/Bid'
+    ListOfBids:
+      $ref: 'parts/bid/model.yaml#/ListOfBids'
+    Contract:
+      $ref: 'parts/contract/model.yaml#/Contract'
+    ListOfContracts:
+      $ref: 'parts/contract/model.yaml#/ListOfContracts'
+
+  securitySchemes:
+    KeystoneAuth:
+      description: |-
+        Openstack Keystone authentication. See the [api reference][1]
+        for details.
+
+        [1]: https://developer.openstack.org/api-ref/identity/v3/
+      type: apiKey
+      in: header
+      name: X-Auth-Token
