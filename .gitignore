@@ -12,3 +12,5 @@ dist
 /.cache
 .eggs/
 .pytest_cache
+*.xml
+.idea/
