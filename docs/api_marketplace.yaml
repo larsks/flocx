@@ -1,45 +1,50 @@
+---
 openapi: 3.0.0
+
 info:
   version: '1.0.0'
   title: 'Marketplace Service API'
-  description: 'Defines resources and methods for offering and bidding physical servers in a Marketplace'
+  description: >-
+    Defines resources and methods for offering and bidding physical servers in
+    a Marketplace
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 
-# Added by API Auto Mocking Plugin
 servers:
-# Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/FLOCX/Marketplace_service/1.0.0
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/FLOCX/Marketplace_Service/1.0.0
-tags:
-- name: offer
-  description: Operations about selling servers
-  externalDocs:
-    description: To render copy this file into
-    url: https://editor.swagger.io/
-- name: bid
-  description: Operations about buying servers
-  externalDocs:
-    description: To render copy this file into
-    url: https://editor.swagger.io/
-- name: contract
-  description: Operations about Contracts
-  externalDocs:
-    description: To render copy this file into
-    url: https://editor.swagger.io/
 
+tags:
+  - name: offer
+    description: Operations about selling servers
+    externalDocs:
+      description: To render copy this file into
+      url: https://editor.swagger.io/
+  - name: bid
+    description: Operations about buying servers
+    externalDocs:
+      description: To render copy this file into
+      url: https://editor.swagger.io/
+  - name: contract
+    description: Operations about Contracts
+    externalDocs:
+      description: To render copy this file into
+      url: https://editor.swagger.io/
 
 paths:
   /offer:
     get:
       tags:
-      - offer
+        - offer
       summary: show me offers from everyone
       operationId: ListOffers
-      description: Obtain list of offers from everyone. If admin is making this request, show all offers with all statuses. In case of a non-admin user show offers with status 'available' only.
+      description: >-
+        Obtain list of offers from everyone. If admin is making this request,
+        show all offers with all statuses. In case of a non-admin user show
+        offers with status 'available' only.
       responses:
         '200':
           description: successful operation
@@ -51,10 +56,12 @@ paths:
                   $ref: '#/components/schemas/Offer'
     post:
       tags:
-      - offer
+        - offer
       summary: Create a new offer
       operationId: create_offer
-      description: Adds attributes <marketplace_offer_id>, <marketplace_date_created>, <Status = available> to the incoming offer
+      description: >-
+        Adds attributes <marketplace_offer_id>, <marketplace_date_created>,
+        <Status = available> to the incoming offer
       requestBody:
         content:
           application/json:
@@ -77,17 +84,19 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 status: 'Error'
-                message: 'Invalid or insufficient input parameters. Cannot create offer.'
-
-
+                message: >-
+                  Invalid or insufficient input parameters. Cannot create
+                  offer.
 
   /offer/<offer_id>:
     get:
       tags:
-      - offer
+        - offer
       summary: Show me details of a particular offer.
       operationId: show_offer(offer_id)
-      description: Admin can query any offer by its offer_id. Non-admin user can query any 'available' offer and any offer that she herself created.
+      description: >-
+        Admin can query any offer by its offer_id. Non-admin user can query any
+        'available' offer and any offer that she herself created.
       responses:
         '200':
           description: Succesful operation.
@@ -104,9 +113,12 @@ paths:
               example:
                 status: 'Error'
                 message: 'Invalid Offer id'
-
         '403':
-          description: You do not have sufficient privileges to access this resource! Will occur when an non-admin user is trying to access an offer created by other user and the status of the offer is anything else except 'available'
+          description: >-
+            You do not have sufficient privileges to access this resource! Will
+            occur when an non-admin user is trying to access an offer created
+            by other user and the status of the offer is anything else except
+            'available'
           content:
             application/json:
               schema:
@@ -126,7 +138,7 @@ paths:
 
     delete:
       tags:
-      - offer
+        - offer
       summary: Deletes the offer.
       operationId: cancel_offer(offer_id)
       description: Sets the status field of the offer to "cancelled"
@@ -142,16 +154,19 @@ paths:
               example:
                 status: 'Error'
                 message: 'Cannot delete. Invalid Offer id'
-
         '403':
-          description: You do not have sufficient privileges to execute this operation. Non-admin or non-owner user cannot update the status field of the offer.
+          description: >-
+            You do not have sufficient privileges to execute this operation.
+            Non-admin or non-owner user cannot update the status field of the
+            offer.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 status: 'Error'
-                message: 'You do not sufficient priviledges to perform this action'
+                message: >-
+                  You do not sufficient priviledges to perform this action
         '404':
           description: <offer_id> does not exist.
           content:
@@ -164,7 +179,7 @@ paths:
 
     put:
       tags:
-      - offer
+        - offer
       summary: updates only the <Status> field of the offer
       operationId: update_offer(offer_id, parameter_key = new value)
       description: Matching Service (available --> used)
@@ -177,27 +192,26 @@ paths:
                 status:
                   type: string
                   enum:
-                  - available
-                  - matched
-                  - used
-                  - cancelled
-                  - expired
+                    - available
+                    - matched
+                    - used
+                    - cancelled
+                    - expired
                   example: used
         description: offer to be published.
         required: true
 
       responses:
         '200':
-          description: Returns complete info of the offer showing updated status field.
+          description: >-
+            Returns complete info of the offer showing updated status field.
           content:
             application/json:
+              # XXX: This needs to include a schema!
               schema:
                 example:
-                  marketplace_offer_id : <offer id>
-                  . .. . : . . . .
-                  status : 'used'
-                  .. .. .: '.. .. .'
-
+                  marketplace_offer_id: <offer id>
+                  status: 'used'
         '400':
           description: Invalid <offer_id>.
           content:
@@ -207,16 +221,17 @@ paths:
               example:
                 status: 'Error'
                 message: 'Invalid Offer id'
-
         '403':
-          description: You do not have sufficient privileges to execute this operation.
+          description: >-
+            You do not have sufficient privileges to execute this operation.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 status: 'Error'
-                message: 'You do not sufficient priviledges to perform this action'
+                message: >-
+                  You do not sufficient priviledges to perform this action
         '404':
           description: <offer_id> does not exist.
           content:
@@ -227,15 +242,15 @@ paths:
                 status: 'Error'
                 message: 'offer id does not exist'
 
-
-
   /bid:
     get:
       tags:
-      - bid
+        - bid
       summary: List all bids
       operationId: list_bids(all)
-      description: Admin can list all bids. Matching Service Engine and non-creator users can only see the list of bids with status `available`.
+      description: >-
+        Admin can list all bids. Matching Service Engine and non-creator users
+        can only see the list of bids with status `available`.
       responses:
         '200':
           description: Succesful operation.
@@ -248,10 +263,12 @@ paths:
 
     post:
       tags:
-      - bid
+        - bid
       summary: Create a new bid
       operationId: create_bid
-      description: Adds attributes <marketplace_bid_id>, <marketplace_date_created>, <Status = available> to the incoming bid
+      description: >-
+        Adds attributes <marketplace_bid_id>, <marketplace_date_created>,
+        <Status = available> to the incoming bid
       requestBody:
         content:
           application/json:
@@ -279,10 +296,12 @@ paths:
   /bid/<bid_id>:
     get:
       tags:
-      - bid
+        - bid
       summary: Display data about a particular bid.
       operationId: show_bid(bid_id)
-      description: Admin can query any bid by its bid_id. Non-admin user can query any 'available' bid and any bid that he created himself.
+      description: >-
+        Admin can query any bid by its bid_id. Non-admin user can query any
+        'available' bid and any bid that he created himself.
       responses:
         '200':
           description: Succesful operation.
@@ -300,14 +319,19 @@ paths:
                 status: 'Error'
                 message: 'Invalid bid id'
         '403':
-          description: You do not have sufficient privileges to access this resource! Will occur when an non-admin user is trying to access a bid created by other user and the status of the bid is anything else except 'available'
+          description: >-
+            You do not have sufficient privileges to access this resource! Will
+            occur when an non-admin user is trying to access a bid created by
+            other user and the status of the bid is anything else except
+            'available'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 status: 'Error'
-                message: 'You do not sufficient priviledges to perform this action'
+                message: >-
+                  You do not sufficient priviledges to perform this action
         '404':
           description: <bid_id> does not exist.
           content:
@@ -319,7 +343,7 @@ paths:
                 message: 'bid id does not exist'
     delete:
       tags:
-      - bid
+        - bid
       summary: Deletes the particular bid.
       operationId: cancel_bid(bid_id)
       description: Sets the status field of the bid to "cancelled"
@@ -336,14 +360,18 @@ paths:
                 status: 'Error'
                 message: 'Invalid bid id'
         '403':
-          description: You do not have sufficient privileges to execute this operation. Non-admin or non-owner user cannot update the status field of the bid.
+          description: >-
+            You do not have sufficient privileges to execute this operation.
+            Non-admin or non-owner user cannot update the status field of the
+            bid.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 status: 'Error'
-                message: 'You do not sufficient priviledges to perform this action'
+                message: >-
+                  You do not sufficient priviledges to perform this action
         '404':
           description: <bid_id> does not exist.
           content:
@@ -355,7 +383,7 @@ paths:
                 message: 'Bid id does not exist.'
     put:
       tags:
-      - bid
+        - bid
       summary: updates only the <Status> field of the bid.
       operationId: update_offer(bid_id, parameter_key = new value)
       description: Matching Service (available --> used)
@@ -368,27 +396,26 @@ paths:
                 status:
                   type: string
                   enum:
-                  - available
-                  - matched
-                  - used
-                  - cancelled
-                  - expired
+                    - available
+                    - matched
+                    - used
+                    - cancelled
+                    - expired
                   example: matched
         description: Bid to be updated.
         required: true
 
       responses:
         '200':
-          description: Returns complete info of the bid showing updated status field.
+          description: >-
+            Returns complete info of the bid showing updated status field.
           content:
             application/json:
               schema:
+                # XXX: This needs a schema!
                 example:
-                  marketplace_offer_id : <bid id>
-                  . .. . : . . . .
-                  status : 'matched'
-                  .. .. .: '.. .. .'
-
+                  marketplace_offer_id: <bid id>
+                  status: 'matched'
         '400':
           description: Invalid <bid_id>
           content:
@@ -399,14 +426,16 @@ paths:
                 status: 'Error'
                 message: 'Invalid Bid id'
         '403':
-          description: You do not have sufficient privileges to execute this operation.
+          description: >-
+            You do not have sufficient privileges to execute this operation.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 status: 'Error'
-                message: 'You do not sufficient priviledges to perform this action'
+                message: >-
+                  You do not sufficient priviledges to perform this action
         '404':
           description: <bid_id> does not exist.
           content:
@@ -416,13 +445,16 @@ paths:
               example:
                 status: 'Error'
                 message: 'Bid id does not exist'
+
   /contract:
     get:
       tags:
-      - contract
+        - contract
       summary: List all contracts
       operationId: list_contracts
-      description: Admin can list all contracts. Non-admin users can only see the list of contracts that involve the offers and bids they made.
+      description: >-
+        Admin can list all contracts. Non-admin users can only see the list of
+        contracts that involve the offers and bids they made.
       responses:
         '200':
           description: Succesful operation.
@@ -435,10 +467,12 @@ paths:
 
     post:
       tags:
-      - contract
+        - contract
       summary: Create a new contract
       operationId: create_contract
-      description: match_maker reads bids and offers from marketplace-service database. When a match between bid and offer is found, a contract is created.
+      description: >-
+        match_maker reads bids and offers from marketplace-service database.
+        When a match between bid and offer is found, a contract is created.
       requestBody:
         content:
           application/json:
@@ -455,7 +489,8 @@ paths:
 
       responses:
         '201':
-          description: Updates users whose bids and offers are involved in the contract.
+          description: >-
+            Updates users whose bids and offers are involved in the contract.
           content:
             application/json:
               schema:
@@ -465,15 +500,17 @@ paths:
                     type: string
                     example: "Contract matched"
                   contract_info:
-                      $ref: '#/components/schemas/Contract'
+                    $ref: '#/components/schemas/Contract'
 
   /contract/<contract_id>:
     get:
       tags:
-      - contract
+        - contract
       summary: Display data about a particular contract.
       operationId: show_contract(contract_id)
-      description: Admin can query any contract by its contract_id. Non-admin user can query any contract that involves the offers or bid they created.
+      description: >-
+        Admin can query any contract by its contract_id. Non-admin user can
+        query any contract that involves the offers or bid they created.
       responses:
         '200':
           description: Succesful operation.
@@ -493,14 +530,18 @@ paths:
                 status: 'Error'
                 message: 'Invalid contract id'
         '403':
-          description: You do not have sufficient privileges to access this resource! Will occur when an non-admin user is trying to access a contract created by other user.
+          description: >-
+            You do not have sufficient privileges to access this resource! Will
+            occur when an non-admin user is trying to access a contract created
+            by other user.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 status: 'Error'
-                message: 'You do not sufficient priviledges to perform this action'
+                message: >-
+                  You do not sufficient priviledges to perform this action
         '404':
           description: <contract_id> does not exist.
           content:
@@ -512,7 +553,7 @@ paths:
                 message: 'Contract id does not exist'
     put:
       tags:
-      - contract
+        - contract
       summary: updates only the <Status> field of the contract.
       operationId: update_contract(contract_id, parameter_key = new value)
       description: Matching Service (executed --> finished)
@@ -526,26 +567,25 @@ paths:
                   type: string
                   example: finished
                   enum:
-                  - matched
-                  - executed
-                  - finished
-                  - expired
-                  - cancelled
+                    - matched
+                    - executed
+                    - finished
+                    - expired
+                    - cancelled
         description: change status of the contract.
         required: true
 
       responses:
         '200':
-          description: Returns complete info of the bid showing updated status field.
+          description: >-
+            Returns complete info of the bid showing updated status field.
           content:
             application/json:
               schema:
+                # XXX: This needs a schema!
                 example:
-                  contract_id : <contract id>
-                  . .. . : . . . .
-                  status : 'finished'
-                  .. .. .: '.. .. .'
-
+                  contract_id: <contract id>
+                  status: 'finished'
         '400':
           description: Invalid <contract_id>
           content:
@@ -556,14 +596,16 @@ paths:
                 status: 'Error'
                 message: 'Invalid Bid id'
         '403':
-          description: You do not have sufficient privileges to execute this operation.
+          description: >-
+            You do not have sufficient privileges to execute this operation.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 status: 'Error'
-                message: 'You do not sufficient priviledges to perform this action'
+                message: >-
+                  You do not sufficient priviledges to perform this action
         '404':
           description: <contract_id> does not exist.
           content:
@@ -575,7 +617,7 @@ paths:
                 message: 'Contract id does not exist'
     delete:
       tags:
-      - contract
+        - contract
       summary: Deletes the particular Contract.
       operationId: cancel_contract(bid_id)
       description: Sets the status field of the contract to "cancelled"
@@ -592,14 +634,18 @@ paths:
                 status: 'Error'
                 message: 'Invalid Contract id'
         '403':
-          description: You do not have sufficient privileges to execute this operation. Non-admin or non-owner user cannot update the status field of the bid.
+          description: >-
+            You do not have sufficient privileges to execute this operation.
+            Non-admin or non-owner user cannot update the status field of the
+            bid.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
               example:
                 status: 'Error'
-                message: 'You do not sufficient priviledges to perform this action'
+                message: >-
+                  You do not sufficient priviledges to perform this action
         '404':
           description: <contract_id> does not exist.
           content:
@@ -619,21 +665,23 @@ components:
           type: string
           format: UUID
           example: 'b711b1ca-a77e-4392-a9b5-dc84c4f469ac'
-        provider_offer_id: # ensure offer submission process is idempotent
+        provider_offer_id:
           type: string
           format: UUID
           example: '90894712-3b21-4bf7-9899-b4234530ff8b'
-        provider_id:  #Id identifying the provider registered with Marketplace
+        provider_id:
           type: string
           format: UUID
           example: 'b9752cc0-9bed-4f1c-8917-12ade7a6fdbe'
-        creator_id:  #Id identifying the user to whom the server belongs.
+        creator_id:
           type: string
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
           description: username that created the offer
-        marketplace_date_created:  #Timestamp of when the offer was created in the marketplace
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 July 2016, Time 8-30 pm Boston time)'
+        marketplace_date_created:
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-07-16T19:20:30-04:00)
@@ -652,12 +700,16 @@ components:
           example: 'fb878e3e-9425-4285-babf-0e58a7b091b2'
           description: unique ID of the physical server
         start_time:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-07-16T19:20:30-04:00)
         end_time:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 August 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 August 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-08-16T19:20:30-04:00)
@@ -667,12 +719,14 @@ components:
           type: number
           format: float64
           example: 11
-          description: States floor price, the minimum asking price. Rate is charged per hour.
+          description: >-
+            States floor price, the minimum asking price. Rate is charged per
+            hour.
 
     provider_Offer:
       type: object
       properties:
-        provider_offer_id: # ensure offer submission process is idempotent
+        provider_offer_id:
           type: string
           format: UUID
           example: '90894712-3b21-4bf7-9899-b4234530ff8b'
@@ -685,28 +739,34 @@ components:
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
           description: username that created the offer
-        server_id: # server id is unique per provider service
+        server_id:
           type: string
           format: UUID
           example: 'fb878e3e-9425-4285-babf-0e58a7b091b2'
           description: unique ID of the physical server
         start_time:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-07-16T19:20:30-04:00)
         end_time:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 August 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 August 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-08-16T19:20:30-04:00)
         server_config:
           $ref: '#/components/schemas/Server_config'
-        cost:   # it is rate per hour
+        cost:
           type: number
           format: float64
           example: 11
-          description: States floor price, the minimum asking price. Rate is charged per hour.
+          description: >-
+            States floor price, the minimum asking price. Rate is charged per
+            hour.
 
     Contract:
       type: object
@@ -716,7 +776,9 @@ components:
           format: UUID
           example: 'b711b1ca-a77e-4392-abcd-dc84c4f469ac'
         time_created:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-07-16T19:20:30-04:00)
@@ -730,18 +792,21 @@ components:
             type: string
             format: UUID
           example:
-          - 'b711b1ca-a77e-4392-abcd-dc84c4f46900'
-          - 'b711b1ca-a77e-4392-abcd-dc84c4f46901'
-          - 'b711b1ca-a77e-4392-abcd-dc84c4f46902'
-          - ' . . . .'
-          - 'b711b1ca-a77e-4392-abcd-dc84c4f46915'
+            - 'b711b1ca-a77e-4392-abcd-dc84c4f46900'
+            - 'b711b1ca-a77e-4392-abcd-dc84c4f46901'
+            - 'b711b1ca-a77e-4392-abcd-dc84c4f46902'
+            - 'b711b1ca-a77e-4392-abcd-dc84c4f46915'
         start_time:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-07-16T19:20:30-04:00)
         end_time:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 August 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 August 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-08-16T19:20:30-04:00)
@@ -749,7 +814,9 @@ components:
           type: number
           format: float64
           example: 11
-          description: States floor price, the minimum asking price. Rate is charged per hour.
+          description: >-
+            States floor price, the minimum asking price. Rate is charged per
+            hour.
         status:
           type: string
           enum:
@@ -764,7 +831,9 @@ components:
       properties:
         properties:
           type: object
-          description: 'Free form meta-data that describes the server.This is just a sample.'
+          description: >-
+            Free form meta-data that describes the server.This is just a
+            sample.
           additionalProperties: true
           example:
             memory_gb: 10240
@@ -778,11 +847,10 @@ components:
               - size_gb: 1024
                 model: 'evo840 ssd'
 
-
     user_bid:
       type: object
       properties:
-        creator_bid_id: # to ensure that same bid is not accepted twice
+        creator_bid_id:
           type: string
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
@@ -793,20 +861,26 @@ components:
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
           description: username that created the bid
         start_time:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-07-16T19:20:30-04:00)
         end_time:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 August 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 August 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-08-16T19:20:30-04:00)
         duration:
           type: integer
           format: int64
-          example: 16400  #No of seconds
-          description: Number of seconds available anytime between 'Start_time' and 'End_time'
+          example: 16400
+          description: >-
+            Number of seconds available anytime between 'Start_time' and
+            'End_time'
         server_quantity:
           type: integer
           format: int32
@@ -817,7 +891,9 @@ components:
           type: number
           format: float64
           example: 11
-          description: States ceiling price, the maximum asking price. Rate is charged per hour.
+          description: >-
+            States ceiling price, the maximum asking price. Rate is charged per
+            hour.
 
     bid_hw_config:
       description: inspired by http://jmespath.org/examples.html
@@ -826,7 +902,7 @@ components:
         type: string
         example:
           - ["cpu_type", "contains", "intel"]
-          - ["cores", ">=" , "4"]
+          - ["cores", ">=", "4"]
           - ["RAM_GB", ">=", "8"]
           - ["storage_size_GB", ">=", "512"]
 
@@ -837,7 +913,7 @@ components:
           type: string
           format: UUID
           example: '90894712-3b21-4bf7-9899-b4219730ff8b'
-        creator_bid_id: # to ensure that same bid is not accepted twice
+        creator_bid_id:
           type: string
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
@@ -847,7 +923,9 @@ components:
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
         start_time:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-07-16T19:20:30-04:00)
@@ -856,7 +934,9 @@ components:
           format: int32
           example: 80
         end_time:
-          description: ISO-8601 DateTime format with timezone difference from UTC  eg '(Date-16 August 2016, Time 8-30 pm Boston time)'
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 August 2016, Time 8-30 pm Boston time)'
           type: string
           format: (yyyy-mm-ddThh:mm:ss-/+hh)
           example: (2016-08-16T19:20:30-04:00)
@@ -864,7 +944,9 @@ components:
           type: integer
           format: int64
           example: 164
-          description: Number of hours available anytime between 'Start_time' and 'End_time'
+          description: >-
+            Number of hours available anytime between 'Start_time' and
+            'End_time'
         status:
           type: string
           enum:
@@ -880,7 +962,9 @@ components:
           type: number
           format: float64
           example: 11
-          description: States ceiling price, the maximum asking price. Rate is charged per hour.
+          description: >-
+            States ceiling price, the maximum asking price. Rate is charged per
+            hour.
 
     Error:
       type: object
@@ -891,5 +975,3 @@ components:
         message:
           type: string
           example: "Invalid input parameters"
-
-
