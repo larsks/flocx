@@ -1,0 +1,473 @@
+{
+  "cpu_arch": "x86_64",
+  "macs": [
+    "b8:2a:72:4f:a3:ea"
+  ],
+  "root_disk": {
+    "rotational": true,
+    "vendor": "SEAGATE",
+    "name": "/dev/sda",
+    "hctl": "0:0:0:0",
+    "wwn_vendor_extension": null,
+    "wwn_with_extension": "0x5123abcd9876542b",
+    "by_path": "/dev/disk/by-path/pci-0000:02:00.0-scsi-0:0:0:0",
+    "model": "ST9600205SS",
+    "wwn": "0x5123abcd9876542b",
+    "serial": "5123abcd98765321",
+    "size": 600127266816
+  },
+  "all_interfaces": {
+    "ib0": {
+      "ip": null,
+      "mac": "f4:52:14:4d:33:41",
+      "pxe": false,
+      "client_id": "ff:00:00:00:00:00:02:00:00:02:c9:00:f4:52:14:03:00:4d:33:41"
+    },
+    "ib1": {
+      "ip": null,
+      "mac": "f4:52:14:4d:33:42",
+      "pxe": false,
+      "client_id": "ff:00:00:00:00:00:02:00:00:02:c9:00:f4:52:14:03:00:4d:33:42"
+    },
+    "eth3": {
+      "ip": null,
+      "mac": "b8:2a:72:4f:a3:f0",
+      "pxe": false,
+      "client_id": null
+    },
+    "eth2": {
+      "ip": "fe80::ba2a:72ff:fe4f:a3ee",
+      "mac": "b8:2a:72:4f:a3:ee",
+      "pxe": false,
+      "client_id": null
+    },
+    "eth1": {
+      "ip": "172.16.10.65",
+      "mac": "b8:2a:72:4f:a3:ec",
+      "lldp_processed": {
+        "switch_capabilities_enabled": [
+          "Bridge",
+          "Router"
+        ],
+        "switch_port_id": "Ethernet1/38",
+        "switch_capabilities_support": [
+          "Bridge",
+          "Router"
+        ],
+        "switch_mgmt_addresses": [
+          "10.1.11.2",
+          "e4:c7:22:c0:0b:8d"
+        ],
+        "switch_system_name": "r4-pA-c23-nexus3548",
+        "switch_port_description": "Ethernet1/38",
+        "switch_chassis_id": "e4:c7:22:c0:0b:8d",
+        "switch_port_untagged_vlan_id": 200,
+        "switch_system_description": "Cisco Nexus Operating System (NX-OS) Software 9.2(3)\nTAC support: http://www.cisco.com/tac\nCopyright (c) 2002-2019, Cisco Systems, Inc. All rights reserved."
+      },
+      "pxe": false,
+      "client_id": null
+    },
+    "eth0": {
+      "ip": "192.168.1.201",
+      "mac": "b8:2a:72:4f:a3:ea",
+      "lldp_processed": {
+        "switch_capabilities_enabled": [
+          "Bridge",
+          "Router"
+        ],
+        "switch_port_id": "Ethernet1/14",
+        "switch_capabilities_support": [
+          "Bridge",
+          "Router"
+        ],
+        "switch_mgmt_addresses": [
+          "10.1.11.2",
+          "e4:c7:22:c0:0b:75"
+        ],
+        "switch_system_name": "r4-pA-c23-nexus3548",
+        "switch_port_description": "Ethernet1/14",
+        "switch_chassis_id": "e4:c7:22:c0:0b:75",
+        "switch_port_untagged_vlan_id": 312,
+        "switch_system_description": "Cisco Nexus Operating System (NX-OS) Software 9.2(3)\nTAC support: http://www.cisco.com/tac\nCopyright (c) 2002-2019, Cisco Systems, Inc. All rights reserved."
+      },
+      "pxe": true,
+      "client_id": null
+    }
+  },
+  "cpus": 32,
+  "boot_interface": "b8:2a:72:4f:a3:ea",
+  "memory_mb": 65536,
+  "ipmi_address": "10.1.12.14",
+  "inventory": {
+    "bmc_address": "10.1.12.14",
+    "interfaces": [
+      {
+        "lldp": [],
+        "ipv6_address": null,
+        "vendor": "0x15b3",
+        "name": "ib1",
+        "has_carrier": true,
+        "product": "0x1003",
+        "ipv4_address": null,
+        "biosdevname": null,
+        "client_id": "ff:00:00:00:00:00:02:00:00:02:c9:00:f4:52:14:03:00:4d:33:42",
+        "mac_address": "f4:52:14:4d:33:42"
+      },
+      {
+        "lldp": [],
+        "ipv6_address": null,
+        "vendor": "0x15b3",
+        "name": "ib0",
+        "has_carrier": true,
+        "product": "0x1003",
+        "ipv4_address": null,
+        "biosdevname": null,
+        "client_id": "ff:00:00:00:00:00:02:00:00:02:c9:00:f4:52:14:03:00:4d:33:41",
+        "mac_address": "f4:52:14:4d:33:41"
+      },
+      {
+        "lldp": [
+          [
+            1,
+            "04e4c722c00b75"
+          ],
+          [
+            2,
+            "0545746865726e6574312f3134"
+          ],
+          [
+            3,
+            "0078"
+          ],
+          [
+            4,
+            "45746865726e6574312f3134"
+          ],
+          [
+            5,
+            "72342d70412d6332332d6e6578757333353438"
+          ],
+          [
+            6,
+            "436973636f204e65787573204f7065726174696e672053797374656d20284e582d4f532920536f66747761726520392e322833290a54414320737570706f72743a20687474703a2f2f7777772e636973636f2e636f6d2f7461630a436f707972696768742028632920323030322d323031392c20436973636f2053797374656d732c20496e632e20416c6c207269676874732072657365727665642e"
+          ],
+          [
+            7,
+            "00140014"
+          ],
+          [
+            8,
+            "05010a010b02020500000000"
+          ],
+          [
+            127,
+            "001b2102020a00000000000100000000060600008000000804110000800000000000640000000000000001"
+          ],
+          [
+            127,
+            "0001420101"
+          ],
+          [
+            127,
+            "0080c2010138"
+          ],
+          [
+            8,
+            "0706e4c722c00b75020500000000"
+          ],
+          [
+            127,
+            "0080c209010000000064000000000000000000000000000000"
+          ],
+          [
+            127,
+            "0080c20a000000000064000000000000000000000000000000"
+          ],
+          [
+            127,
+            "0080c20b0800"
+          ],
+          [
+            0,
+            ""
+          ]
+        ],
+        "ipv6_address": "fe80::ba2a:72ff:fe4f:a3ea%eth0",
+        "vendor": "0x8086",
+        "name": "eth0",
+        "has_carrier": true,
+        "product": "0x10f8",
+        "ipv4_address": "192.168.1.201",
+        "biosdevname": null,
+        "client_id": null,
+        "mac_address": "b8:2a:72:4f:a3:ea"
+      },
+      {
+        "lldp": [
+          [
+            1,
+            "04e4c722c00b8d"
+          ],
+          [
+            2,
+            "0545746865726e6574312f3338"
+          ],
+          [
+            3,
+            "0078"
+          ],
+          [
+            4,
+            "45746865726e6574312f3338"
+          ],
+          [
+            5,
+            "72342d70412d6332332d6e6578757333353438"
+          ],
+          [
+            6,
+            "436973636f204e65787573204f7065726174696e672053797374656d20284e582d4f532920536f66747761726520392e322833290a54414320737570706f72743a20687474703a2f2f7777772e636973636f2e636f6d2f7461630a436f707972696768742028632920323030322d323031392c20436973636f2053797374656d732c20496e632e20416c6c207269676874732072657365727665642e"
+          ],
+          [
+            7,
+            "00140014"
+          ],
+          [
+            8,
+            "05010a010b02020500000000"
+          ],
+          [
+            127,
+            "001b2102020a00000000000100000000060600008000000804110000800000000000640000000000000001"
+          ],
+          [
+            127,
+            "0001420101"
+          ],
+          [
+            127,
+            "0080c20100c8"
+          ],
+          [
+            8,
+            "0706e4c722c00b8d020500000000"
+          ],
+          [
+            127,
+            "0080c209010000000064000000000000000000000000000000"
+          ],
+          [
+            127,
+            "0080c20a000000000064000000000000000000000000000000"
+          ],
+          [
+            127,
+            "0080c20b0800"
+          ],
+          [
+            0,
+            ""
+          ]
+        ],
+        "ipv6_address": "fe80::ba2a:72ff:fe4f:a3ec%eth1",
+        "vendor": "0x8086",
+        "name": "eth1",
+        "has_carrier": true,
+        "product": "0x10f8",
+        "ipv4_address": "172.16.10.65",
+        "biosdevname": null,
+        "client_id": null,
+        "mac_address": "b8:2a:72:4f:a3:ec"
+      },
+      {
+        "lldp": [],
+        "ipv6_address": null,
+        "vendor": "0x8086",
+        "name": "eth3",
+        "has_carrier": false,
+        "product": "0x10f8",
+        "ipv4_address": null,
+        "biosdevname": null,
+        "client_id": null,
+        "mac_address": "b8:2a:72:4f:a3:f0"
+      },
+      {
+        "lldp": [],
+        "ipv6_address": "fe80::ba2a:72ff:fe4f:a3ee%eth2",
+        "vendor": "0x8086",
+        "name": "eth2",
+        "has_carrier": true,
+        "product": "0x10f8",
+        "ipv4_address": null,
+        "biosdevname": null,
+        "client_id": null,
+        "mac_address": "b8:2a:72:4f:a3:ee"
+      }
+    ],
+    "disks": [
+      {
+        "rotational": true,
+        "vendor": "SEAGATE",
+        "name": "/dev/sda",
+        "hctl": "0:0:0:0",
+        "wwn_vendor_extension": null,
+        "wwn_with_extension": "0x5123abcd98765321",
+        "by_path": "/dev/disk/by-path/pci-0000:02:00.0-scsi-0:0:0:0",
+        "model": "ST9600205SS",
+        "wwn": "0x5123abcd98765321",
+        "serial": "5123abcd98765321",
+        "size": 600127266816
+      },
+      {
+        "rotational": true,
+        "vendor": "TOSHIBA",
+        "name": "/dev/sdb",
+        "hctl": "0:0:1:0",
+        "wwn_vendor_extension": null,
+        "wwn_with_extension": "0x512344321abcd012",
+        "by_path": "/dev/disk/by-path/pci-0000:02:00.0-scsi-0:0:1:0",
+        "model": "AL13SEB600",
+        "wwn": "0x512344321abcd012",
+        "serial": "512344321abcd012",
+        "size": 600127266816
+      }
+    ],
+    "boot": {
+      "current_boot_mode": "bios",
+      "pxe_interface": "b8:2a:72:4f:a3:ea"
+    },
+    "system_vendor": {
+      "serial_number": "X0MAX01",
+      "product_name": "PowerEdge M620 (SKU=NotProvided;ModelName=PowerEdge M620)",
+      "manufacturer": "Dell Inc."
+    },
+    "memory": {
+      "physical_mb": 65536,
+      "total": 67507003392
+    },
+    "cpu": {
+      "count": 32,
+      "frequency": "3400.0000",
+      "flags": [
+        "fpu",
+        "vme",
+        "de",
+        "pse",
+        "tsc",
+        "msr",
+        "pae",
+        "mce",
+        "cx8",
+        "apic",
+        "sep",
+        "mtrr",
+        "pge",
+        "mca",
+        "cmov",
+        "pat",
+        "pse36",
+        "clflush",
+        "dts",
+        "acpi",
+        "mmx",
+        "fxsr",
+        "sse",
+        "sse2",
+        "ss",
+        "ht",
+        "tm",
+        "pbe",
+        "syscall",
+        "nx",
+        "pdpe1gb",
+        "rdtscp",
+        "lm",
+        "constant_tsc",
+        "arch_perfmon",
+        "pebs",
+        "bts",
+        "rep_good",
+        "nopl",
+        "xtopology",
+        "nonstop_tsc",
+        "aperfmperf",
+        "eagerfpu",
+        "pni",
+        "pclmulqdq",
+        "dtes64",
+        "monitor",
+        "ds_cpl",
+        "vmx",
+        "smx",
+        "est",
+        "tm2",
+        "ssse3",
+        "cx16",
+        "xtpr",
+        "pdcm",
+        "pcid",
+        "dca",
+        "sse4_1",
+        "sse4_2",
+        "x2apic",
+        "popcnt",
+        "tsc_deadline_timer",
+        "aes",
+        "xsave",
+        "avx",
+        "f16c",
+        "rdrand",
+        "lahf_lm",
+        "ssbd",
+        "ibrs",
+        "ibpb",
+        "tpr_shadow",
+        "vnmi",
+        "flexpriority",
+        "ept",
+        "vpid",
+        "fsgsbase",
+        "smep",
+        "erms",
+        "xsaveopt",
+        "dtherm",
+        "ida",
+        "arat",
+        "pln",
+        "pts"
+      ],
+      "model_name": "Intel(R) Xeon(R) CPU E5-2650 v2 @ 2.60GHz",
+      "architecture": "x86_64"
+    }
+  },
+  "error": null,
+  "local_gb": 557,
+  "interfaces": {
+    "eth0": {
+      "ip": "192.168.1.201",
+      "mac": "b8:2a:72:4f:a3:ea",
+      "lldp_processed": {
+        "switch_capabilities_enabled": [
+          "Bridge",
+          "Router"
+        ],
+        "switch_port_id": "Ethernet1/14",
+        "switch_capabilities_support": [
+          "Bridge",
+          "Router"
+        ],
+        "switch_mgmt_addresses": [
+          "10.1.11.2",
+          "e4:c7:22:c0:0b:75"
+        ],
+        "switch_system_name": "r4-pA-c23-nexus3548",
+        "switch_port_description": "Ethernet1/14",
+        "switch_chassis_id": "e4:c7:22:c0:0b:75",
+        "switch_port_untagged_vlan_id": 312,
+        "switch_system_description": "Cisco Nexus Operating System (NX-OS) Software 9.2(3)\nTAC support: http://www.cisco.com/tac\nCopyright (c) 2002-2019, Cisco Systems, Inc. All rights reserved."
+      },
+      "pxe": true,
+      "client_id": null
+    }
+  }
+}
