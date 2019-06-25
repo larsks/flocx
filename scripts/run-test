@@ -1,0 +1,47 @@
+#!/bin/bash
+
+red='\e[31m'
+green='\e[32m'
+reset='\e[0m'
+
+TOPDIR=$(git rev-parse --show-toplevel)
+PATH=$TOPDIR/node_modules/.bin:$PATH
+export PATH TOPDIR
+
+run_test() {
+    local cmd=$1
+
+    tmpfile=$(mktemp .checkXXXXXX)
+    trap "rm -f $tmpfile" EXIT
+
+    echo -n "* $cmd: "
+    if $TOPDIR/scripts/$cmd > $tmpfile 2>&1; then
+        retval=0
+        echo -e "${green}okay.${reset}"
+    else
+        retval=1
+        echo -e "${red}failed.${reset}"
+        echo '----------------------------------------------------------------------'
+        cat $tmpfile
+        echo '----------------------------------------------------------------------'
+    fi
+
+    rm -f $tmpfile
+
+    return $retval
+}
+
+set -e
+
+cd $TOPDIR
+
+tmpdir=$(mktemp -d .precommitXXXXXX)
+trap "rm -rf $tmpdir" EXIT
+
+# check out all files
+git checkout-index --prefix $tmpdir/ -fa
+
+(
+cd $tmpdir
+run_test $1
+)

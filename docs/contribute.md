@@ -2,7 +2,8 @@
 
 ## Bug reports
 
-You may submit bug reports using GitHub issues. Use the issue tracker for the appropriate FLOCX sub-project:
+You may submit bug reports using GitHub issues. Use the issue tracker for the
+appropriate FLOCX sub-project:
 
 - [flocx documentation](https://github.com/cci-moc/flocx/issues)
 - [flocx-marketplace](https://github.com/cci-moc/flocx-marketplace/issues)
@@ -10,7 +11,8 @@ You may submit bug reports using GitHub issues. Use the issue tracker for the ap
 
 ## Contributing code or documentation
 
-Submit code contributions as pull requests against the appropriate FLOCX sub-project:
+Submit code contributions as pull requests against the appropriate FLOCX
+sub-project:
 
 - [flocx documentation](https://github.com/cci-moc/flocx/pulls)
 - [flocx-marketplace](https://github.com/cci-moc/flocx-marketplace/pulls)
