@@ -107,7 +107,7 @@ Match a specific manufacturer and product:
 
 ```
 [
-  ["system_vendor.manufacturer", "matches", "Dell"],
-  ["system_vendor.product_name", "matches", "PowerEdge M620"]
+  ["inventory.system_vendor.manufacturer", "matches", "Dell"],
+  ["inventory.system_vendor.product_name", "matches", "PowerEdge M620"]
 ]
 ```
