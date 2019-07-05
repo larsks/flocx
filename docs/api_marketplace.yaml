@@ -40,7 +40,7 @@ paths:
       tags:
         - offer
       summary: show me offers from everyone
-      operationId: ListOffers
+      operationId: list_offers
       description: >-
         Obtain list of offers from everyone. If admin is making this request,
         show all offers with all statuses. In case of a non-admin user show
@@ -207,11 +207,8 @@ paths:
             Returns complete info of the offer showing updated status field.
           content:
             application/json:
-              # XXX: This needs to include a schema!
               schema:
-                example:
-                  marketplace_offer_id: <offer id>
-                  status: 'used'
+                $ref: '#/components/schemas/Offer_put'
         '400':
           description: Invalid <offer_id>.
           content:
@@ -310,7 +307,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Bid'
         '400':
-          description: Invalid <bid_id> or <bid_id> does not exist.
+          description: Invalid <bid_id>
           content:
             application/json:
               schema:
@@ -351,7 +348,7 @@ paths:
         '200':
           description: Bid cancelled successfully
         '400':
-          description: Invalid <bid_id> or <bid_id> does not exist.
+          description: Invalid <bid_id>
           content:
             application/json:
               schema:
@@ -412,10 +409,7 @@ paths:
           content:
             application/json:
               schema:
-                # XXX: This needs a schema!
-                example:
-                  marketplace_offer_id: <bid id>
-                  status: 'matched'
+                $ref: '#/components/schemas/Bid_put'
         '400':
           description: Invalid <bid_id>
           content:
@@ -582,10 +576,7 @@ paths:
           content:
             application/json:
               schema:
-                # XXX: This needs a schema!
-                example:
-                  contract_id: <contract id>
-                  status: 'finished'
+                $ref: '#/components/schemas/Contract_put'
         '400':
           description: Invalid <contract_id>
           content:
@@ -673,11 +664,11 @@ components:
           type: string
           format: UUID
           example: 'b9752cc0-9bed-4f1c-8917-12ade7a6fdbe'
-        creator_id:
+        project_id:
           type: string
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
-          description: username that created the offer
+          description: project that created the offer
         marketplace_date_created:
           description: >-
             ISO-8601 DateTime format with timezone difference from UTC  eg
@@ -723,6 +714,71 @@ components:
             States floor price, the minimum asking price. Rate is charged per
             hour.
 
+    Offer_put:
+      type: object
+      properties:
+        marketplace_offer_id:
+          type: string
+          format: UUID
+          example: 'b711b1ca-a77e-4392-a9b5-dc84c4f469ac'
+        provider_offer_id:
+          type: string
+          format: UUID
+          example: '90894712-3b21-4bf7-9899-b4234530ff8b'
+        provider_id:
+          type: string
+          format: UUID
+          example: 'b9752cc0-9bed-4f1c-8917-12ade7a6fdbe'
+        project_id:
+          type: string
+          format: UUID
+          example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
+          description: project that created the offer
+        marketplace_date_created:
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          type: string
+          format: (yyyy-mm-ddThh:mm:ss-/+hh)
+          example: (2016-07-16T19:20:30-04:00)
+        status:
+          type: string
+          enum:
+            - available
+            - matched
+            - used
+            - cancelled
+            - expired
+          example: used
+        server_id:    # server id is unique per provider service
+          type: string
+          format: UUID
+          example: 'fb878e3e-9425-4285-babf-0e58a7b091b2'
+          description: unique ID of the physical server
+        start_time:
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          type: string
+          format: (yyyy-mm-ddThh:mm:ss-/+hh)
+          example: (2016-07-16T19:20:30-04:00)
+        end_time:
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 August 2016, Time 8-30 pm Boston time)'
+          type: string
+          format: (yyyy-mm-ddThh:mm:ss-/+hh)
+          example: (2016-08-16T19:20:30-04:00)
+        server_config:
+          $ref: '#/components/schemas/Server_config'
+        cost:   # it is rate per hour
+          type: number
+          format: float64
+          example: 11
+          description: >-
+            States floor price, the minimum asking price. Rate is charged per
+            hour.
+
     provider_Offer:
       type: object
       properties:
@@ -734,11 +790,11 @@ components:
           type: string
           format: UUID
           example: '90894712-3b21-4bf7-9899-b4219730ff8b'
-        creator_id:
+        project_id:
           type: string
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
-          description: username that created the offer
+          description: project that created the offer
         server_id:
           type: string
           format: UUID
@@ -827,6 +883,65 @@ components:
             - cancelled
           default: matched
 
+    Contract_put:
+      type: object
+      properties:
+        contract_id:
+          type: string
+          format: UUID
+          example: 'b711b1ca-a77e-4392-abcd-dc84c4f469ac'
+        time_created:
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          type: string
+          format: (yyyy-mm-ddThh:mm:ss-/+hh)
+          example: (2016-07-16T19:20:30-04:00)
+        bid_id:
+          type: string
+          format: UUID
+          example: 'b711b1ca-a77e-4392-abcd-dc84c4f469ac'
+        offers:
+          type: array
+          items:
+            type: string
+            format: UUID
+          example:
+            - 'b711b1ca-a77e-4392-abcd-dc84c4f46900'
+            - 'b711b1ca-a77e-4392-abcd-dc84c4f46901'
+            - 'b711b1ca-a77e-4392-abcd-dc84c4f46902'
+            - 'b711b1ca-a77e-4392-abcd-dc84c4f46915'
+        start_time:
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          type: string
+          format: (yyyy-mm-ddThh:mm:ss-/+hh)
+          example: (2016-07-16T19:20:30-04:00)
+        end_time:
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 August 2016, Time 8-30 pm Boston time)'
+          type: string
+          format: (yyyy-mm-ddThh:mm:ss-/+hh)
+          example: (2016-08-16T19:20:30-04:00)
+        cost:
+          type: number
+          format: float64
+          example: 11
+          description: >-
+            States floor price, the minimum asking price. Rate is charged per
+            hour.
+        status:
+          type: string
+          enum:
+            - matched
+            - executed
+            - finished
+            - expired
+            - cancelled
+          example: finished
+
     Server_config:
       properties:
         properties:
@@ -855,11 +970,11 @@ components:
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
           description: id generated by the user creating the bid.
-        creator_id:
+        project_id:
           type: string
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
-          description: username that created the bid
+          description: project that created the bid
         start_time:
           description: >-
             ISO-8601 DateTime format with timezone difference from UTC  eg
@@ -918,10 +1033,11 @@ components:
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
           description: id generated by the user creating the bid.
-        creator_id:
+        project_id:
           type: string
           format: UUID
           example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
+          description: project that created the bid
         start_time:
           description: >-
             ISO-8601 DateTime format with timezone difference from UTC  eg
@@ -956,6 +1072,67 @@ components:
             - cancelled
             - expired
           default: available
+        server_config_query:
+          $ref: '#/components/schemas/bid_hw_config'
+        cost:
+          type: number
+          format: float64
+          example: 11
+          description: >-
+            States ceiling price, the maximum asking price. Rate is charged per
+            hour.
+
+    Bid_put:
+      type: object
+      properties:
+        marketplace_bid_id:
+          type: string
+          format: UUID
+          example: '90894712-3b21-4bf7-9899-b4219730ff8b'
+        creator_bid_id:
+          type: string
+          format: UUID
+          example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
+          description: id generated by the user creating the bid.
+        project_id:
+          type: string
+          format: UUID
+          example: '12a59a51-b4d6-497d-9f75-f56c409305c8'
+          description: project that created the bid
+        start_time:
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 July 2016, Time 8-30 pm Boston time)'
+          type: string
+          format: (yyyy-mm-ddThh:mm:ss-/+hh)
+          example: (2016-07-16T19:20:30-04:00)
+        server_quantity:
+          type: integer
+          format: int32
+          example: 80
+        end_time:
+          description: >-
+            ISO-8601 DateTime format with timezone difference from UTC  eg
+            '(Date-16 August 2016, Time 8-30 pm Boston time)'
+          type: string
+          format: (yyyy-mm-ddThh:mm:ss-/+hh)
+          example: (2016-08-16T19:20:30-04:00)
+        duration:
+          type: integer
+          format: int64
+          example: 164
+          description: >-
+            Number of hours available anytime between 'Start_time' and
+            'End_time'
+        status:
+          type: string
+          enum:
+            - available
+            - matched
+            - used
+            - cancelled
+            - expired
+          example: matched
         server_config_query:
           $ref: '#/components/schemas/bid_hw_config'
         cost:
