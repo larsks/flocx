@@ -3,8 +3,25 @@ dist: xenial
 language: python
 python:
   - 3.7
+
 install:
-  - pip install -r test-requirements.txt
+  - pip install pipenv
+  - pipenv install
+  - npm install
+    
 script:
   - ./scripts/validate-all-yaml
   - ./scripts/validate-openapi-specs
+  - ./scripts/build-docs
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  keep_history: true
+  local_dir: $TRAVIS_BUILD_DIR/htmldocs/html
+  github_token: $GITHUB_TOKEN
+  repo: cci-moc/flocx
+  target_branch: gh-pages
+  verbose: true
+  "on":
+    branch: master
