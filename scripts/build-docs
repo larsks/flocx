@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+PATH=$PWD/node_modules/.bin:$PATH
+export PATH
+
+rm -rf htmldocs
+mkdir -p htmldocs/html/specs
+
+make html
+for spec in docs/specs/*.yaml; do
+	basename=${spec##*/}
+	basename_no_ext=${basename%.yaml}
+	redoc-cli bundle $spec -o htmldocs/html/specs/${basename_no_ext}.html
+done
+
+# Disable github jekyll processing
+touch htmldocs/html/.nojekyll
+
+cat > htmldocs/html/metadata.json <<EOF
+{
+    "date": "$(date)",
+    "revision": "$(git rev-parse HEAD)"
+}
+EOF

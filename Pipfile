@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+recommonmark = "*"
+sphinx-markdown-tables = "*"
+sphinx-rtd-theme = "*"
+ghp-import = "*"
+yamllint = "*"
+prance = {extras = ["cli", "icu", "osv"],version = "*"}
+Sphinx = "*"
+
+[requires]
+python_version = "3.7"
